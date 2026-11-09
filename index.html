@@ -251,7 +251,7 @@
 
         <!-- תחנה 1 -->
         <div class="station-card active" id="station-1">
-            <h2 class="station-title">תחנה 1: תעלומת ההרמפרודיטיזם</h2>
+            <h2 class="station-title">תחנה 1: תמונת ההרמפרודיטיזם</h2>
             <div class="story-box">
                 נכנסתם לגינת המחקר הלילית. כדי לפתוח את השער הראשון, עליכם להבין את זהות המתרבים.
                 חלזונות השדה הם <strong>אנדרוגיניים (הרמפרודיטים)</strong>. מה משמעות המושג הביולוגי הזה?
@@ -388,4 +388,86 @@
                 function animate() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     particles.forEach((p) => {
-                        p.x += p.vx; p.y += p.vy
+                        p.x += p.vx; p.y += p.vy; p.vy += 0.22;
+                        ctx.save();
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate((p.rotation * Math.PI) / 180);
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                        ctx.restore();
+                    });
+                    confettiAnimId = requestAnimationFrame(animate);
+                }
+                animate();
+            } catch(e){}
+        }
+
+        function clearConfetti() {
+            try {
+                if (confettiAnimId) cancelAnimationFrame(confettiAnimId);
+                const canvas = document.getElementById('confettiCanvas');
+                if(canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+            } catch(e){}
+        }
+
+        // --- לוגיקת משחק מדויקת ---
+        const correctAnswers = { 1: 1, 2: 1, 3: 1, 4: 1 };
+
+        function checkAnswer(stationNum, selectedIndex) {
+            const feedback = document.getElementById(`feedback-${stationNum}`);
+            
+            if (selectedIndex === correctAnswers[stationNum]) {
+                feedback.innerHTML = "<span class='success'>תשובה נכונה! המנעול נפתח! 🔓</span>";
+                playCorrectSound();
+                
+                const currentNode = document.getElementById(`node-${stationNum}`);
+                if(currentNode) {
+                    currentNode.classList.remove('active');
+                    currentNode.classList.add('completed');
+                }
+
+                setTimeout(() => {
+                    const currentCard = document.getElementById(`station-${stationNum}`);
+                    if(currentCard) currentCard.classList.remove('active');
+                    
+                    const nextStation = stationNum + 1;
+
+                    if (nextStation <= 4) {
+                        const nextCard = document.getElementById(`station-${nextStation}`);
+                        const nextNode = document.getElementById(`node-${nextStation}`);
+                        if(nextCard) nextCard.classList.add('active');
+                        if(nextNode) nextNode.classList.add('active');
+                    } else {
+                        const victoryCard = document.getElementById('victory-card');
+                        if(victoryCard) victoryCard.classList.add('active');
+                        playVictorySound();
+                        triggerConfetti();
+                    }
+                }, 1000);
+            } else {
+                feedback.innerHTML = "<span class='error'>תשובה שגויה, נסו שנית! 🔒</span>";
+                playWrongSound();
+            }
+        }
+
+        function restartEscapeRoom() {
+            clearConfetti();
+            
+            document.querySelectorAll('.station-card').forEach(card => card.classList.remove('active'));
+            document.querySelectorAll('.step-node').forEach(node => {
+                node.classList.remove('active', 'completed');
+            });
+
+            const station1 = document.getElementById('station-1');
+            const node1 = document.getElementById('node-1');
+            if(station1) station1.classList.add('active');
+            if(node1) node1.classList.add('active');
+            
+            for(let i=1; i<=4; i++) {
+                const fb = document.getElementById(`feedback-${i}`);
+                if(fb) fb.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
