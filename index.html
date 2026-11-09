@@ -132,7 +132,6 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* --- אזור קרא ולמד (חדש) --- */
         .study-box {
             background: var(--info-bg);
             border: 2px solid var(--primary);
@@ -146,9 +145,6 @@
             font-size: 1.2rem;
             font-weight: 800;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .study-content {
@@ -167,11 +163,11 @@
             margin-bottom: 25px;
         }
 
-        /* --- Lock 1: Rotary Lock (מתוקן) --- */
+        /* --- Rotary Lock המשודרג והעובד --- */
         .rotary-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             margin: 25px 0;
         }
 
@@ -185,27 +181,29 @@
             background: var(--primary);
             color: #000;
             border: none;
-            width: 50px; height: 38px;
+            width: 70px; height: 35px;
             border-radius: 8px;
-            font-weight: bold; font-size: 1.2rem;
+            font-weight: bold; font-size: 1.3rem;
             cursor: pointer;
             transition: background 0.2s;
         }
         .wheel-btn:hover { background: var(--accent); }
 
         .wheel-val {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            width: 70px; height: 80px;
+            width: 75px; height: 85px;
             background: #000;
-            border: 2px solid var(--border);
-            border-radius: 10px;
+            border: 3px solid var(--accent);
+            border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
             margin: 10px 0;
             color: var(--accent);
+            cursor: pointer;
+            user-select: none;
         }
 
-        /* --- Lock 2: Keypad --- */
+        /* --- Keypad --- */
         .keypad-grid {
             display: grid;
             grid-template-columns: repeat(3, 70px);
@@ -260,7 +258,6 @@
             font-weight: bold;
         }
 
-        /* --- Scanner Frame --- */
         .scanner-frame {
             position: relative;
             max-width: 420px; margin: 0 auto 20px auto;
@@ -331,36 +328,36 @@
             <div class="station active" id="station1">
                 <h2>תחנה 1: מבנה גוף והרמפרודיטיזם</h2>
                 
-                <!-- אזור קרא ולמד -->
                 <div class="study-box">
-                    <div class="study-title">📖 קראו ולמדו: האם חלזונות הם זכר או נקבה?</div>
+                    <div class="study-title">📖 קראו ולמדו: מהו אנדרוגינוס (הרמפרודיט)?</div>
                     <div class="study-content">
-                        חלזונות השדה הם יצורים <strong>הרמפרודיטיים (אנדרוגיניים)</strong>. משמעות הדבר היא שאין חילזון "זכר בלבד" או "נקבה בלבד" – <strong>כל חלזון נושא בגופו בו זמנית גם מערכת רבייה זכרית וגם מערכת רבייה נקبיית</strong>. במהלך המפגש מתבצעת הפריה הדדית שבה שני הפרטים מעבירים תאי זרע זה לזה.
+                        חלזונות השדה אינם "זכר בלבד" או "נקבה בלבד". כל חלזון נושא בגופו בו-זמנית מערכת רבייה זכרית אחת ומערכת רבייה נקבית אחת (סה"כ <strong>2 מערכות רבייה בכל חלזון</strong>).<br><br>
+                        כדי לפרוץ את הכספת הראשונה, הרכיבו את קוד 3 הספרות:
+                        <br>• ספרה 1: מספר מערכות הרבייה הזכריות בחילזון (1)
+                        <br>• ספרה 2: מספר מערכות הרבייה הנקביות בחילזון (1)
+                        <br>• ספרה 3: סך כל מערכות הרבייה שיש לחילזון אחד יחד (2)
                     </div>
                 </div>
 
                 <div class="clue-box">
-                    <strong>משימת הכספת:</strong> לפי מה שלמדתם, השלימו את הקוד בן 3 הספרות לפי הסדר הבא:<br>
-                    1. מספר המערכות הזכריות בחלזון אחד.<br>
-                    2. מספר המערכות הנקביות בחלזון אחד.<br>
-                    3. מספר הפרטים המשתתפים בהפריה ההדדית.
+                    <strong>משימת הכספת:</strong> לחצו על החיצים (או直接 על המספר) כדי לקבוע את הקוד: <strong>1 - 1 - 2</strong>
                 </div>
 
                 <div class="rotary-container">
                     <div class="wheel-box">
-                        <button class="wheel-btn" onclick="changeWheel(0, 1)">▲</button>
-                        <div class="wheel-val" id="w-0">0</div>
-                        <button class="wheel-btn" onclick="changeWheel(0, -1)">▼</button>
+                        <button class="wheel-btn" onclick="stepWheel(0, 1)">▲</button>
+                        <div class="wheel-val" id="w-0" onclick="stepWheel(0, 1)">0</div>
+                        <button class="wheel-btn" onclick="stepWheel(0, -1)">▼</button>
                     </div>
                     <div class="wheel-box">
-                        <button class="wheel-btn" onclick="changeWheel(1, 1)">▲</button>
-                        <div class="wheel-val" id="w-1">0</div>
-                        <button class="wheel-btn" onclick="changeWheel(1, -1)">▼</button>
+                        <button class="wheel-btn" onclick="stepWheel(1, 1)">▲</button>
+                        <div class="wheel-val" id="w-1" onclick="stepWheel(1, 1)">0</div>
+                        <button class="wheel-btn" onclick="stepWheel(1, -1)">▼</button>
                     </div>
                     <div class="wheel-box">
-                        <button class="wheel-btn" onclick="changeWheel(2, 1)">▲</button>
-                        <div class="wheel-val" id="w-2">0</div>
-                        <button class="wheel-btn" onclick="changeWheel(2, -1)">▼</button>
+                        <button class="wheel-btn" onclick="stepWheel(2, 1)">▲</button>
+                        <div class="wheel-val" id="w-2" onclick="stepWheel(2, 1)">0</div>
+                        <button class="wheel-btn" onclick="stepWheel(2, -1)">▼</button>
                     </div>
                 </div>
 
@@ -375,4 +372,58 @@
                 <div class="study-box">
                     <div class="study-title">📖 קראו ולמדו: מהו "חץ אהבה"?</div>
                     <div class="study-content">
-                        בעת החיזור, חלזונות השדה מפרישים ומחדירים זה לזה מבנה עשוי גיר סידני המכונה <strong>"חץ אהבה" (Love Dart)</strong>. בניגוד למחשבה שזהו נשק קטלני, החץ אי
+                        בעת החיזור, חלזונות השדה מפרישים ומחדירים זה לזה מבנה סידני המכונה <strong>"חץ אהבה" (Love Dart)</strong>. החץ מעביר הורמונים שמגדילים את סיכויי השרדות תאי הזרע וההפריה.<br><br>
+                        קוד הגישה הביולוגי של החץ למקלדת הוא: <strong>777</strong>.
+                    </div>
+                </div>
+
+                <div class="clue-box">
+                    <strong>משימת המקלדת:</strong> הקלידו במקלדת הדיגיטלית את הקוד: <strong>777</strong>.
+                </div>
+
+                <div class="keypad-display" id="key-disp">___</div>
+                <div class="keypad-grid">
+                    <button class="key-btn" onclick="pressKey('7')">7</button>
+                    <button class="key-btn" onclick="pressKey('8')">8</button>
+                    <button class="key-btn" onclick="pressKey('9')">9</button>
+                    <button class="key-btn" onclick="pressKey('4')">4</button>
+                    <button class="key-btn" onclick="pressKey('5')">5</button>
+                    <button class="key-btn" onclick="pressKey('6')">6</button>
+                    <button class="key-btn" onclick="pressKey('1')">1</button>
+                    <button class="key-btn" onclick="pressKey('2')">2</button>
+                    <button class="key-btn" onclick="pressKey('3')">3</button>
+                    <button class="key-btn" style="background:#ff0055; color:#fff;" onclick="clearKeypad()">C</button>
+                    <button class="key-btn" onclick="pressKey('0')">0</button>
+                    <button class="key-btn" style="background:var(--success); color:#000;" onclick="checkStation2()">✓</button>
+                </div>
+                <div class="feedback" id="fb-2"></div>
+            </div>
+
+            <!-- STATION 3 -->
+            <div class="station" id="station3">
+                <h2>תחנה 3: הטלת הביצים ותנאי הסביבה</h2>
+                
+                <div class="study-box">
+                    <div class="study-title">📖 קראו ולמדו: איפה מטילים ביצים?</div>
+                    <div class="study-content">
+                        לאחר שההפריה ההדדית הושלמה, החלזונות חופרים בעזרת רגל השריר שלהם <strong>גומה באדמה לחה</strong> ומטילים בתוכה את הביצים כדי להגן עליהן מפני התייבשות.
+                    </div>
+                </div>
+
+                <div class="clue-box">
+                    בחרו את הפעולה הביולוגית הנכונה:
+                </div>
+
+                <div class="order-list">
+                    <div class="order-item" onclick="selectOption3(this, false)">
+                        א. הטלת הביצים על גבי עלים גבוהים בשמש מלאה
+                    </div>
+                    <div class="order-item" onclick="selectOption3(this, true)">
+                        ב. חפירת גומה באדמה לחה והטלת הביצים בתוכה
+                    </div>
+                    <div class="order-item" onclick="selectOption3(this, false)">
+                        ג. נשיאת הביצים על הקונכייה בכל מסע
+                    </div>
+                </div>
+
+                <button class="action-btn" onclick="checkStation3()">אשר בח
