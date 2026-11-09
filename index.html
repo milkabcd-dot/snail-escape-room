@@ -17,7 +17,7 @@
             --success: #00f5d4;
             --text-main: #ffffff;
             --text-sub: #d8f3dc;
-            --info-bg: rgba(15, 23, 42, 0.6);
+            --info-bg: #1c2541;
         }
 
         * { box-sizing: border-box; }
@@ -83,6 +83,7 @@
             border-radius: 24px;
             padding: 35px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
         }
 
         .progress-stepper {
@@ -132,38 +133,91 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        .study-box {
-            background: var(--info-bg);
-            border: 2px solid var(--primary);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .study-title {
-            color: var(--accent);
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .study-content {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: #f1f5f9;
-        }
-
         .clue-box {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
             border-right: 4px solid var(--primary);
             padding: 18px;
             border-radius: 12px;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        /* --- Rotary Lock המשודרג והעובד --- */
+        /* --- כפתור חלון עזרה --- */
+        .help-btn {
+            background: rgba(255, 230, 0, 0.15);
+            border: 2px solid #ffe600;
+            color: #ffe600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto 20px auto;
+            transition: all 0.2s ease;
+        }
+
+        .help-btn:hover {
+            background: #ffe600;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4);
+        }
+
+        /* --- Modal (חלון צץ לעזרה) --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: var(--info-bg);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 550px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .modal-title {
+            color: var(--accent);
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .modal-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #f1f5f9;
+            margin-bottom: 20px;
+        }
+
+        .close-modal-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* --- Lock 1: Rotary Lock --- */
         .rotary-container {
             display: flex;
             justify-content: center;
@@ -203,7 +257,7 @@
             user-select: none;
         }
 
-        /* --- Keypad --- */
+        /* --- Lock 2: Keypad --- */
         .keypad-grid {
             display: grid;
             grid-template-columns: repeat(3, 70px);
@@ -237,193 +291,4 @@
 
         /* --- Order Options --- */
         .order-list {
-            display: flex; flex-direction: column; gap: 10px; margin: 20px 0;
-        }
-
-        .order-item {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid var(--border);
-            padding: 15px; border-radius: 10px;
-            cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 1.05rem;
-            transition: background 0.2s;
-        }
-
-        .order-item:hover { background: rgba(91, 192, 190, 0.15); }
-
-        .order-item.selected {
-            border-color: var(--accent);
-            background: rgba(111, 255, 233, 0.2);
-            font-weight: bold;
-        }
-
-        .scanner-frame {
-            position: relative;
-            max-width: 420px; margin: 0 auto 20px auto;
-            border-radius: 16px; overflow: hidden;
-            border: 2px solid var(--accent);
-            background: #000;
-        }
-
-        .scanner-frame img {
-            width: 100%; height: auto; display: block;
-        }
-
-        .scanner-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: var(--accent);
-            box-shadow: 0 0 15px var(--accent);
-            animation: scan 3s infinite linear;
-        }
-
-        @keyframes scan {
-            0% { top: 0; }
-            50% { top: 100%; }
-            100% { top: 0; }
-        }
-
-        .action-btn {
-            display: block; width: 100%; max-width: 250px;
-            margin: 20px auto 0 auto; padding: 14px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            color: #000; border: none; border-radius: 12px;
-            font-size: 1.15rem; font-weight: 800;
-            cursor: pointer; transition: transform 0.2s;
-        }
-
-        .action-btn:hover { transform: scale(1.03); }
-
-        .feedback {
-            text-align: center; font-weight: bold; font-size: 1.15rem;
-            margin-top: 15px; min-height: 30px;
-        }
-
-        canvas#confetti {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 99;
-        }
-    </style>
-</head>
-<body>
-
-    <canvas class="bg-particles" id="particles"></canvas>
-    <canvas id="confetti"></canvas>
-
-    <div class="wrapper">
-        <header>
-            <h1>🔬 מעבדת המחקר: סודות חלזונות השדה</h1>
-            <div class="credit">פותח ועוצב ע״י מילכה ברקו גרש 🔬</div>
-        </header>
-
-        <div class="main-card">
-            <div class="progress-stepper">
-                <div class="step active" id="st-1">1</div>
-                <div class="step" id="st-2">2</div>
-                <div class="step" id="st-3">3</div>
-                <div class="step" id="st-4">4</div>
-            </div>
-
-            <!-- STATION 1 -->
-            <div class="station active" id="station1">
-                <h2>תחנה 1: מבנה גוף והרמפרודיטיזם</h2>
-                
-                <div class="study-box">
-                    <div class="study-title">📖 קראו ולמדו: מהו אנדרוגינוס (הרמפרודיט)?</div>
-                    <div class="study-content">
-                        חלזונות השדה אינם "זכר בלבד" או "נקבה בלבד". כל חלזון נושא בגופו בו-זמנית מערכת רבייה זכרית אחת ומערכת רבייה נקבית אחת (סה"כ <strong>2 מערכות רבייה בכל חלזון</strong>).<br><br>
-                        כדי לפרוץ את הכספת הראשונה, הרכיבו את קוד 3 הספרות:
-                        <br>• ספרה 1: מספר מערכות הרבייה הזכריות בחילזון (1)
-                        <br>• ספרה 2: מספר מערכות הרבייה הנקביות בחילזון (1)
-                        <br>• ספרה 3: סך כל מערכות הרבייה שיש לחילזון אחד יחד (2)
-                    </div>
-                </div>
-
-                <div class="clue-box">
-                    <strong>משימת הכספת:</strong> לחצו על החיצים (או直接 על המספר) כדי לקבוע את הקוד: <strong>1 - 1 - 2</strong>
-                </div>
-
-                <div class="rotary-container">
-                    <div class="wheel-box">
-                        <button class="wheel-btn" onclick="stepWheel(0, 1)">▲</button>
-                        <div class="wheel-val" id="w-0" onclick="stepWheel(0, 1)">0</div>
-                        <button class="wheel-btn" onclick="stepWheel(0, -1)">▼</button>
-                    </div>
-                    <div class="wheel-box">
-                        <button class="wheel-btn" onclick="stepWheel(1, 1)">▲</button>
-                        <div class="wheel-val" id="w-1" onclick="stepWheel(1, 1)">0</div>
-                        <button class="wheel-btn" onclick="stepWheel(1, -1)">▼</button>
-                    </div>
-                    <div class="wheel-box">
-                        <button class="wheel-btn" onclick="stepWheel(2, 1)">▲</button>
-                        <div class="wheel-val" id="w-2" onclick="stepWheel(2, 1)">0</div>
-                        <button class="wheel-btn" onclick="stepWheel(2, -1)">▼</button>
-                    </div>
-                </div>
-
-                <button class="action-btn" onclick="checkStation1()">פרוץ מנעול</button>
-                <div class="feedback" id="fb-1"></div>
-            </div>
-
-            <!-- STATION 2 -->
-            <div class="station" id="station2">
-                <h2>תחנה 2: תעלומת "חיצי האהבה"</h2>
-                
-                <div class="study-box">
-                    <div class="study-title">📖 קראו ולמדו: מהו "חץ אהבה"?</div>
-                    <div class="study-content">
-                        בעת החיזור, חלזונות השדה מפרישים ומחדירים זה לזה מבנה סידני המכונה <strong>"חץ אהבה" (Love Dart)</strong>. החץ מעביר הורמונים שמגדילים את סיכויי השרדות תאי הזרע וההפריה.<br><br>
-                        קוד הגישה הביולוגי של החץ למקלדת הוא: <strong>777</strong>.
-                    </div>
-                </div>
-
-                <div class="clue-box">
-                    <strong>משימת המקלדת:</strong> הקלידו במקלדת הדיגיטלית את הקוד: <strong>777</strong>.
-                </div>
-
-                <div class="keypad-display" id="key-disp">___</div>
-                <div class="keypad-grid">
-                    <button class="key-btn" onclick="pressKey('7')">7</button>
-                    <button class="key-btn" onclick="pressKey('8')">8</button>
-                    <button class="key-btn" onclick="pressKey('9')">9</button>
-                    <button class="key-btn" onclick="pressKey('4')">4</button>
-                    <button class="key-btn" onclick="pressKey('5')">5</button>
-                    <button class="key-btn" onclick="pressKey('6')">6</button>
-                    <button class="key-btn" onclick="pressKey('1')">1</button>
-                    <button class="key-btn" onclick="pressKey('2')">2</button>
-                    <button class="key-btn" onclick="pressKey('3')">3</button>
-                    <button class="key-btn" style="background:#ff0055; color:#fff;" onclick="clearKeypad()">C</button>
-                    <button class="key-btn" onclick="pressKey('0')">0</button>
-                    <button class="key-btn" style="background:var(--success); color:#000;" onclick="checkStation2()">✓</button>
-                </div>
-                <div class="feedback" id="fb-2"></div>
-            </div>
-
-            <!-- STATION 3 -->
-            <div class="station" id="station3">
-                <h2>תחנה 3: הטלת הביצים ותנאי הסביבה</h2>
-                
-                <div class="study-box">
-                    <div class="study-title">📖 קראו ולמדו: איפה מטילים ביצים?</div>
-                    <div class="study-content">
-                        לאחר שההפריה ההדדית הושלמה, החלזונות חופרים בעזרת רגל השריר שלהם <strong>גומה באדמה לחה</strong> ומטילים בתוכה את הביצים כדי להגן עליהן מפני התייבשות.
-                    </div>
-                </div>
-
-                <div class="clue-box">
-                    בחרו את הפעולה הביולוגית הנכונה:
-                </div>
-
-                <div class="order-list">
-                    <div class="order-item" onclick="selectOption3(this, false)">
-                        א. הטלת הביצים על גבי עלים גבוהים בשמש מלאה
-                    </div>
-                    <div class="order-item" onclick="selectOption3(this, true)">
-                        ב. חפירת גומה באדמה לחה והטלת הביצים בתוכה
-                    </div>
-                    <div class="order-item" onclick="selectOption3(this, false)">
-                        ג. נשיאת הביצים על הקונכייה בכל מסע
-                    </div>
-                </div>
-
-                <button class="action-btn" onclick="checkStation3()">אשר בח
+            display: flex; flex-direction: column; gap: 12px; margin: 2
