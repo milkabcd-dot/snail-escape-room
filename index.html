@@ -3,490 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>חדר בריחה מקצועי: מסתורין בגינה - סודות החלזונות</title>
+    <title>מעבדת הסודית: תעלומת חלזונות השדה</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
+
         :root {
-            --bg-color: #f1f5f9;
-            --card-bg: #ffffff;
-            --primary: #0f172a;
-            --accent: #15803d;
-            --accent-hover: #166534;
-            --light-accent: #dcfce7;
-            --text: #1e293b;
-            --text-light: #475569;
-            --border: #cbd5e1;
+            --bg: #0b132b;
+            --panel: rgba(28, 37, 65, 0.75);
+            --border: rgba(91, 192, 190, 0.3);
+            --primary: #5bc0be;
+            --accent: #6fffe9;
+            --alert: #ff0055;
+            --success: #00f5d4;
+            --text-main: #ffffff;
+            --text-sub: #cdceb1;
         }
 
+        * { box-sizing: border-box; }
+
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text);
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            font-family: 'Rubik', sans-serif;
+            background: radial-gradient(circle at center, #1c2541 0%, #0b132b 100%);
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
         }
 
-        .header {
+        .bg-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        header {
             text-align: center;
             margin-bottom: 25px;
         }
 
         h1 {
-            color: var(--primary);
-            margin-bottom: 6px;
-            font-size: 2.2rem;
-            font-weight: 800;
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(111, 255, 233, 0.3);
         }
 
-        .subtitle {
-            color: var(--text-light);
-            font-size: 1.15rem;
-            margin-top: 0;
-        }
-
-        .creator-credit {
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 1.05rem;
-            background: var(--light-accent);
-            padding: 8px 20px;
-            border-radius: 30px;
+        .credit {
             display: inline-block;
             margin-top: 10px;
-            border: 2px solid #86efac;
-        }
-
-        .escape-container {
-            max-width: 850px;
-            width: 100%;
-            background: var(--card-bg);
+            background: rgba(91, 192, 190, 0.15);
+            border: 1px solid var(--primary);
+            padding: 6px 18px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            padding: 35px;
-            box-sizing: border-box;
-            position: relative;
-            border: 1px solid #e2e8f0;
+            font-weight: 600;
+            color: var(--accent);
         }
 
-        .progress-bar {
+        .main-card {
+            background: var(--panel);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .progress-stepper {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             position: relative;
         }
 
-        .progress-bar::before {
+        .progress-stepper::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: #e2e8f0;
+            top: 50%; left: 0; right: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
             z-index: 1;
-            transform: translateY(-50%);
-            border-radius: 3px;
         }
 
-        .step-node {
-            width: 45px;
-            height: 45px;
+        .step {
+            width: 50px; height: 50px;
             border-radius: 50%;
-            background: #e2e8f0;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
+            background: #0b132b;
+            border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1.2rem;
             z-index: 2;
             transition: all 0.4s ease;
-            border: 3px solid #ffffff;
         }
 
-        .step-node.active {
-            background: var(--accent);
-            color: white;
-            box-shadow: 0 0 0 5px var(--light-accent);
-        }
-
-        .step-node.completed {
-            background: #22c55e;
-            color: white;
-        }
-
-        .station-card {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .station-card.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .station-title {
-            color: var(--primary);
-            font-size: 1.5rem;
-            border-bottom: 3px solid var(--light-accent);
-            padding-bottom: 12px;
-            margin-top: 0;
-            font-weight: 700;
-        }
-
-        .story-box {
-            background: #f8fafc;
-            border-right: 5px solid var(--accent);
-            padding: 18px;
-            border-radius: 6px 12px 12px 6px;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #0f172a;
-            border-top: 1px solid #e2e8f0;
-            border-left: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .photo-frame {
-            text-align: center;
-            margin: 25px 0;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 4px solid #f1f5f9;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-            max-width: 420px;
-            margin-left: auto;
-            margin-right: auto;
-            background: #000;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin: 25px 0;
-        }
-
-        .option-btn {
-            background: #ffffff;
-            border: 2px solid var(--border);
-            padding: 16px 22px;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: right;
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--primary);
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .option-btn:hover {
+        .step.active {
             border-color: var(--accent);
-            background: var(--light-accent);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(21, 128, 61, 0.15);
-        }
-
-        .feedback-box {
-            min-height: 28px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .success { color: #15803d; }
-        .error { color: #b91c1c; }
-
-        canvas#confettiCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        .victory-screen {
-            text-align: center;
-            padding: 20px 10px;
-        }
-
-        .victory-title {
             color: var(--accent);
-            font-size: 2.4rem;
-            margin-bottom: 15px;
-            font-weight: 800;
+            box-shadow: 0 0 15px var(--accent);
         }
 
-        .restart-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            font-size: 1.15rem;
-            font-weight: bold;
+        .step.done {
+            background: var(--success);
+            border-color: var(--success);
+            color: #000;
+        }
+
+        .station { display: none; }
+        .station.active { display: block; animation: zoomIn 0.4s ease; }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .clue-box {
+            background: rgba(0,0,0,0.3);
+            border-right: 4px solid var(--primary);
+            padding: 20px;
             border-radius: 12px;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 4px 12px rgba(21, 128, 61, 0.25);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
         }
 
-        .restart-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
+        /* --- Lock 1: Rotary Lock --- */
+        .rotary-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .wheel-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wheel-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            width: 45px; height: 35px;
+            border-radius: 6px;
+            font-weight: bold; font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .wheel-val {
+            font-size: 2.5rem;
+            font-weight: 800;
+            width: 65px; height: 75px;
+            background: #000;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 10px 0;
+            color: var(--accent);
+        }
+
+        /* --- Lock 2: Keypad --- */
+        .keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 70px);
+            gap: 12px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .key-btn {
+            width: 70px; height: 60px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: #fff; font-size: 1.4rem; font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .key-btn:hover { background: var(--primary); color: #000; }
+
+        .keypad-display {
+            width: 234px; height: 50px;
+            background: #000;
+            border: 2px solid var(--accent);
+            margin: 0 auto 15px auto;
+            border-radius: 8px;
+            font-size: 1.8rem; letter-spacing: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent);
+        }
+
+        /* --- Lock 3: Reorder Cards --- */
+        .order-list {
+            display: flex; flex-direction: column; gap: 10px; margin: 20px 0;
+        }
+
+        .order-item {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
+            padding: 15px; border-radius: 10px;
+            cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .order-item.selected {
+            border-color: var(--accent);
+            background: rgba(111, 255, 233, 0.15);
+        }
+
+        /* --- Lock 4: Image Scanner --- */
+        .scanner-frame {
+            position: relative;
+            max-width: 450px; margin: 0 auto 20px auto;
+            border-radius: 16px; overflow: hidden;
+            border: 2px solid var(--accent);
+        }
+
+        .scanner-frame img {
+            width: 100%; height: auto; display: block;
+        }
+
+        .scanner-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+            animation: scan 3s infinite linear;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+
+        .action-btn {
+            display: block; width: 100%; max-width: 250px;
+            margin: 20px auto 0 auto; padding: 14px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: #000; border: none; border-radius: 12px;
+            font-size: 1.2rem; font-weight: 800;
+            cursor: pointer; transition: transform 0.2s;
+        }
+
+        .action-btn:hover { transform: scale(1.05); }
+
+        .feedback {
+            text-align: center; font-weight: bold; font-size: 1.2rem;
+            margin-top: 15px; min-height: 30px;
+        }
+
+        canvas#confetti {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 99;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>🐌 חדר בריחה: מסתורין בגינה</h1>
-        <p class="subtitle">פענחו את הסודות הביולוגיים של רביית חלזונות השדה כדי לצאת מהמעבדה!</p>
-        <div class="creator-credit">פותח ועוצב ע״י מילכה ברקו גרש 🔬</div>
-    </div>
+    <canvas class="bg-particles" id="particles"></canvas>
+    <canvas id="confetti"></canvas>
 
-    <div class="escape-container">
-        <!-- סרגל התקדמות -->
-        <div class="progress-bar">
-            <div class="step-node active" id="node-1">1</div>
-            <div class="step-node" id="node-2">2</div>
-            <div class="step-node" id="node-3">3</div>
-            <div class="step-node" id="node-4">4</div>
-        </div>
+    <div class="wrapper">
+        <header>
+            <h1>🔐 מעבדת המחקר: סודות החלזונות</h1>
+            <div class="credit">פותח ועוצב ע״י מילכה ברקו גרש 🔬</div>
+        </header>
 
-        <!-- תחנה 1 -->
-        <div class="station-card active" id="station-1">
-            <h2 class="station-title">תחנה 1: תמונת ההרמפרודיטיזם</h2>
-            <div class="story-box">
-                נכנסתם לגינת המחקר הלילית. כדי לפתוח את השער הראשון, עליכם להבין את זהות המתרבים.
-                חלזונות השדה הם <strong>אנדרוגיניים (הרמפרודיטים)</strong>. מה משמעות המושג הביולוגי הזה?
+        <div class="main-card">
+            <div class="progress-stepper">
+                <div class="step active" id="st-1">1</div>
+                <div class="step" id="st-2">2</div>
+                <div class="step" id="st-3">3</div>
+                <div class="step" id="st-4">4</div>
             </div>
-            <div class="options-grid">
-                <button class="option-btn" onclick="checkAnswer(1, 0)">כל חלזון הוא זכר בלבד או נקבה בלבד (כמו ביונקים)</button>
-                <button class="option-btn" onclick="checkAnswer(1, 1)">כל חלזון נושא מערכות רבייה זכריות ונקביות בו זמנית</button>
-                <button class="option-btn" onclick="checkAnswer(1, 2)">החלזונות מתרבים ללא צורך במפגש עם חלזון נוסף (רביית אל-מין)</button>
-            </div>
-            <div class="feedback-box" id="feedback-1"></div>
-        </div>
 
-        <!-- תחנה 2 -->
-        <div class="station-card" id="station-2">
-            <h2 class="station-title">תחנה 2: תעלומת "חיצי האהבה"</h2>
-            <div class="story-box">
-                השער נפתח! כעת אתם צופים מקרוב במפגש החיזור. 
-                במהלך המפגש, החלזונות מפרישים ומחדירים זה לזה מבנה מיוחד העשוי גיר (גיר סידני), המכונה <strong>"חץ אהבה" (Love Dart)</strong>. 
-                מה תפקידו הביולוגי של חץ זה?
-            </div>
-            <div class="options-grid">
-                <button class="option-btn" onclick="checkAnswer(2, 0)">להרוג את החלזון השני כדי לזכות בטריטוריה</button>
-                <button class="option-btn" onclick="checkAnswer(2, 1)">להעביר הורמונים המגדילים את סיכויי השרדות תאי הזרע וההפריה</button>
-                <button class="option-btn" onclick="checkAnswer(2, 2)">לבנות את הקונכייה של החלזון הצעיר</button>
-            </div>
-            <div class="feedback-box" id="feedback-2"></div>
-        </div>
+            <!-- STATION 1 -->
+            <div class="station active" id="station1">
+                <h2>תחנה 1: מנעול הכספת האנטומי</h2>
+                <div class="clue-box">
+                    <strong>רמז לפתיחת הקוד:</strong> חלזונות השדה הם הרמפרודיטים (אנדרוגיניים). לקוד הכספת 3 ספרות:<br>
+                    1. מספר המערכות הזכריות שיש לכל חלזון? (1)<br>
+                    2. מספר המערכות הנקביות שיש לכל חלזון? (1)<br>
+                    3. סך הכל תאי זרע שמעבירים הדדית (זכר+נקבה פועלים)? (2)
+                </div>
 
-        <!-- תחנה 3 -->
-        <div class="station-card" id="station-3">
-            <h2 class="station-title">תחנה 3: מחזור החיים וההטלה</h2>
-            <div class="story-box">
-                המנעול השני נפרץ! לאחר שההפריה ההדדית הושלמה, שני החלזונות נכנסים לשלב הטלת הביצים.
-                היכן וכיצד יטיל החלזון את ביציו כדי להבטיח את הישרדות הדור הבא?
-            </div>
-            <div class="options-grid">
-                <button class="option-btn" onclick="checkAnswer(3, 0)">הוא מטיל אותן באוויר על גבי עלים גבוהים בשמש מלאה</button>
-                <button class="option-btn" onclick="checkAnswer(3, 1)">הוא חופר גומה באדמה לחה ומטיל בה עשרות ביצים עגולות</button>
-                <button class="option-btn" onclick="checkAnswer(3, 2)">הוא נושא את הביצים על הקונכייה שלו עד לבקיעתן</button>
-            </div>
-            <div class="feedback-box" id="feedback-3"></div>
-        </div>
+                <div class="rotary-container">
+                    <div class="wheel-box">
+                        <button class="wheel-btn" onclick="changeWheel(0, 1)">▲</button>
+                        <div class="wheel-val" id="w-0">0</div>
+                        <button class="wheel-btn" onclick="changeWheel(0, -1)">▼</button>
+                    </div>
+                    <div class="wheel-box">
+                        <button class="wheel-btn" onclick="changeWheel(1, 1)">▲</button>
+                        <div class="wheel-val" id="w-1">0</div>
+                        <button class="wheel-btn" onclick="changeWheel(1, -1)">▼</button>
+                    </div>
+                    <div class="wheel-box">
+                        <button class="wheel-btn" onclick="changeWheel(2, 1)">▲</button>
+                        <div class="wheel-val" id="w-2">0</div>
+                        <button class="wheel-btn" onclick="changeWheel(2, -1)">▼</button>
+                    </div>
+                </div>
 
-        <!-- תחנה 4 -->
-        <div class="station-card" id="station-4">
-            <h2 class="station-title">תחנה 4: פענוח תצלום המעבדה</h2>
-            <div class="story-box">
-                הגעתם למנעול האחרון! לפניכם תצלום נדיר שנלכד בשטח.
-                בחנו את התמונה בקפידה: מהו התהליך הביולוגי ההדדי המתרחש בין החלזונות ברגע זה?
+                <button class="action-btn" onclick="checkStation1()">פרוץ מנעול</button>
+                <div class="feedback" id="fb-1"></div>
             </div>
-            <div class="photo-frame">
-                <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים">
-            </div>
-            <div class="options-grid">
-                <button class="option-btn" onclick="checkAnswer(4, 0)">מאבק על מזון ומקור מים בקרקע</button>
-                <button class="option-btn" onclick="checkAnswer(4, 1)">הזדווגות והעברת תאי זרע הדדית באמצעות איברי הרבייה</button>
-                <button class="option-btn" onclick="checkAnswer(4, 2)">תרדמת חורף משותפת (אסטיווציה)</button>
-            </div>
-            <div class="feedback-box" id="feedback-4"></div>
-        </div>
 
-        <!-- מסך ניצחון -->
-        <div class="station-card" id="victory-card">
-            <div class="victory-screen">
-                <h2 class="victory-title">🎉 פיצחתם את חדר הבריחה!</h2>
-                <div class="photo-frame" style="max-width:320px;">
+            <!-- STATION 2 -->
+            <div class="station" id="station2">
+                <h2>תחנה 2: מקלדת הקוד של "חיצי האהבה"</h2>
+                <div class="clue-box">
+                    <strong>רמז מפוענח:</strong> במהלך החיזור, החלזונות יורים זה בזה "חץ אהבה" (Love Dart) עשוי סידן.<br>
+                    מה הקוד הביולוגי שלו? החץ **אינו** הורג (0), אלא מפריש **הורמונים המגדילים את שרדות הזרע** (קוד: 777).
+                </div>
+
+                <div class="keypad-display" id="key-disp">____</div>
+                <div class="keypad-grid">
+                    <button class="key-btn" onclick="pressKey('7')">7</button>
+                    <button class="key-btn" onclick="pressKey('8')">8</button>
+                    <button class="key-btn" onclick="pressKey('9')">9</button>
+                    <button class="key-btn" onclick="pressKey('4')">4</button>
+                    <button class="key-btn" onclick="pressKey('5')">5</button>
+                    <button class="key-btn" onclick="pressKey('6')">6</button>
+                    <button class="key-btn" onclick="pressKey('1')">1</button>
+                    <button class="key-btn" onclick="pressKey('2')">2</button>
+                    <button class="key-btn" onclick="pressKey('3')">3</button>
+                    <button class="key-btn" style="background:#ff0055; color:#fff;" onclick="clearKeypad()">C</button>
+                    <button class="key-btn" onclick="pressKey('0')">0</button>
+                    <button class="key-btn" style="background:var(--success); color:#000;" onclick="checkStation2()">✓</button>
+                </div>
+                <div class="feedback" id="fb-2"></div>
+            </div>
+
+            <!-- STATION 3 -->
+            <div class="station" id="station3">
+                <h2>תחנה 3: רצף מחזור ההטלה</h2>
+                <div class="clue-box">
+                    לחצו על השלב הנכון ביותר להבטחת הישרדות הביצים:
+                </div>
+
+                <div class="order-list">
+                    <div class="order-item" onclick="selectOption3(this, false)">
+                        א. הטלת הביצים על עלים גבוהים החשופים לשמש ישירה
+                    </div>
+                    <div class="order-item" onclick="selectOption3(this, true)">
+                        ב. חפירת גומה באדמה לחה והטלת הביצים בתוכה
+                    </div>
+                    <div class="order-item" onclick="selectOption3(this, false)">
+                        ג. נשיאת הביצים על הקונכייה עד לבקיעתן
+                    </div>
+                </div>
+
+                <button class="action-btn" onclick="checkStation3()">אשר בחירה</button>
+                <div class="feedback" id="fb-3"></div>
+            </div>
+
+            <!-- STATION 4 -->
+            <div class="station" id="station4">
+                <h2>תחנה 4: מפענח הסריקה הטרמית</h2>
+                <div class="clue-box">
+                    סורק המעבדה זיהה תהליך הזדווגות נדיר בשטח. התבוננו בתמונה שפוענחה:
+                </div>
+
+                <div class="scanner-frame">
+                    <div class="scanner-line"></div>
                     <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים">
                 </div>
-                <p style="font-size: 1.2rem; line-height: 1.6; color: var(--text);">
-                    כל הכבוד! חקרתם והבנתם את מורכבות תהליך הרבייה וההרמפרודיטיזם בחלזונות השדה.
-                </p>
-                <button class="restart-btn" onclick="restartEscapeRoom()">שחקו שוב</button>
+
+                <div class="order-list">
+                    <div class="order-item" onclick="selectOption4(this, true)">
+                        הזדווגות והעברת תאי זרע הדדית דרך איברי הרבייה
+                    </div>
+                    <div class="order-item" onclick="selectOption4(this, false)">
+                        קרב טריטוריאלי על מזון בקרקע
+                    </div>
+                </div>
+
+                <button class="action-btn" onclick="checkStation4()">פתח את הדלת הסופית</button>
+                <div class="feedback" id="fb-4"></div>
             </div>
+
+            <!-- VICTORY -->
+            <div class="station" id="station-victory" style="text-align: center;">
+                <h1 style="color:var(--success); font-size: 2.8rem;">🔓 המעבדה נפרצה בהצלחה!</h1>
+                <div class="scanner-frame" style="max-width:320px;">
+                    <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים">
+                </div>
+                <p style="font-size: 1.3rem; line-height: 1.8;">
+                    כל הכבוד! פיצחתם את כל המנעולים המדעים והבנתם לעומק את תהליך הרבייה של חלזונות השדה.
+                </p>
+                <button class="action-btn" onclick="location.reload()">שחק שוב 🔄</button>
+            </div>
+
         </div>
     </div>
 
-    <canvas id="confettiCanvas"></canvas>
-
     <script>
-        function playSound(freq, type, duration) {
+        // --- Sound FX Generator ---
+        function snd(f, t, d) {
             try {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (!AudioCtx) return;
-                const ctx = new AudioCtx();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, ctx.currentTime);
-                gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + duration);
+                let c = new (window.AudioContext || window.webkitAudioContext)();
+                let o = c.createOscillator(), g = c.createGain();
+                o.type = t; o.frequency.value = f;
+                g.gain.setValueAtTime(0.1, c.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.01, c.currentTime + d);
+                o.connect(g); g.connect(c.destination);
+                o.start(); o.stop(c.currentTime + d);
             } catch(e){}
         }
 
-        function playCorrectSound() {
-            playSound(523.25, 'sine', 0.12);
-            setTimeout(() => playSound(659.25, 'sine', 0.12), 90);
+        // --- Station 1 Logic ---
+        let wheels = [0,0,0];
+        function changeWheel(idx, diff) {
+            wheels[idx] = (wheels[idx] + diff + 10) % 10;
+            document.getElementById(`w-${idx}`).innerText = wheels[idx];
+            snd(400, 'sine', 0.05);
         }
 
-        function playWrongSound() {
-            playSound(180, 'sawtooth', 0.20);
-        }
-
-        function playVictorySound() {
-            [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
-                setTimeout(() => playSound(freq, 'triangle', 0.25), idx * 130);
-            });
-        }
-
-        let confettiAnimId = null;
-        function triggerConfetti() {
-            try {
-                const canvas = document.getElementById('confettiCanvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                let particles = [];
-                const colors = ['#15803d', '#22c55e', '#86efac', '#eab308', '#166534'];
-                
-                for (let i = 0; i < 90; i++) {
-                    particles.push({
-                        x: canvas.width / 2, y: canvas.height / 2,
-                        vx: (Math.random() - 0.5) * 12, vy: (Math.random() - 0.7) * 12,
-                        size: Math.random() * 8 + 4, color: colors[Math.floor(Math.random() * colors.length)],
-                        rotation: Math.random() * 360
-                    });
-                }
-
-                function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    particles.forEach((p) => {
-                        p.x += p.vx; p.y += p.vy; p.vy += 0.22;
-                        ctx.save();
-                        ctx.translate(p.x, p.y);
-                        ctx.rotate((p.rotation * Math.PI) / 180);
-                        ctx.fillStyle = p.color;
-                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-                        ctx.restore();
-                    });
-                    confettiAnimId = requestAnimationFrame(animate);
-                }
-                animate();
-            } catch(e){}
-        }
-
-        function clearConfetti() {
-            try {
-                if (confettiAnimId) cancelAnimationFrame(confettiAnimId);
-                const canvas = document.getElementById('confettiCanvas');
-                if(canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-            } catch(e){}
-        }
-
-        const correctAnswers = { 1: 1, 2: 1, 3: 1, 4: 1 };
-
-        function checkAnswer(stationNum, selectedIndex) {
-            const feedback = document.getElementById(`feedback-${stationNum}`);
-            
-            if (selectedIndex === correctAnswers[stationNum]) {
-                feedback.innerHTML = "<span class='success'>תשובה נכונה! המנעול נפתח! 🔓</span>";
-                playCorrectSound();
-                
-                const currentNode = document.getElementById(`node-${stationNum}`);
-                if(currentNode) {
-                    currentNode.classList.remove('active');
-                    currentNode.classList.add('completed');
-                }
-
-                setTimeout(() => {
-                    const currentCard = document.getElementById(`station-${stationNum}`);
-                    if(currentCard) currentCard.classList.remove('active');
-                    
-                    const nextStation = stationNum + 1;
-
-                    if (nextStation <= 4) {
-                        const nextCard = document.getElementById(`station-${nextStation}`);
-                        const nextNode = document.getElementById(`node-${nextStation}`);
-                        if(nextCard) nextCard.classList.add('active');
-                        if(nextNode) nextNode.classList.add('active');
-                    } else {
-                        const victoryCard = document.getElementById('victory-card');
-                        if(victoryCard) victoryCard.classList.add('active');
-                        playVictorySound();
-                        triggerConfetti();
-                    }
-                }, 1000);
+        function checkStation1() {
+            if (wheels.join('') === '112') {
+                snd(800, 'sine', 0.2);
+                document.getElementById('fb-1').innerHTML = "<span style='color:var(--success)'>מנעול הכספת נפתח! 🔓</span>";
+                nextStation(1, 2);
             } else {
-                feedback.innerHTML = "<span class='error'>תשובה שגויה, נסו שנית! 🔒</span>";
-                playWrongSound();
+                snd(150, 'sawtooth', 0.2);
+                document.getElementById('fb-1').innerHTML = "<span style='color:var(--alert)'>קוד שגוי! נסה שוב.</span>";
             }
         }
 
-        function restartEscapeRoom() {
-            clearConfetti();
-            
-            document.querySelectorAll('.station-card').forEach(card => card.classList.remove('active'));
-            document.querySelectorAll('.step-node').forEach(node => {
-                node.classList.remove('active', 'completed');
-            });
-
-            const station1 = document.getElementById('station-1');
-            const node1 = document.getElementById('node-1');
-            if(station1) station1.classList.add('active');
-            if(node1) node1.classList.add('active');
-            
-            for(let i=1; i<=4; i++) {
-                const fb = document.getElementById(`feedback-${i}`);
-                if(fb) fb.innerHTML = "";
+        // --- Station 2 Logic ---
+        let keyBuffer = "";
+        function pressKey(k) {
+            if (keyBuffer.length < 3) keyBuffer += k;
+            document.getElementById('key-disp').innerText = keyBuffer.padEnd(3, '_');
+            snd(550, 'square', 0.05);
+        }
+        function clearKeypad() {
+            keyBuffer = "";
+            document.getElementById('key-disp').innerText = "___";
+        }
+        function checkStation2() {
+            if (keyBuffer === "777") {
+                snd(800, 'sine', 0.2);
+                document.getElementById('fb-2').innerHTML = "<span style='color:var(--success)'>קוד גישה אושר! 🔓</span>";
+                nextStation(2, 3);
+            } else {
+                snd(150, 'sawtooth', 0.2);
+                document.getElementById('fb-2').innerHTML = "<span style='color:var(--alert)'>קוד שגוי!</span>";
+                clearKeypad();
             }
         }
-    </script>
-</body>
-</html>
+
+        // --- Station 3 Logic ---
+        let st3Choice = false;
+        function selectOption3(el, isCorrect) {
+            document.querySelectorAll('#station3 .order-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+            st3Choice = isCorrect;
+            snd(450, 'sine', 0.05);
+        }
+        function checkStation3() {
+            if (st3Choice) {
+                snd(800, 'sine', 0.2);
+                document.getElementById('fb-3').innerHTML = "<span style='color:var(--success)'>תשובה נכונה! 🔓</span>";
+                nextStation(3, 4);
+            } else {
+                snd(150, 'sawtooth', 0.2);
+                document.getElementById('fb-3').innerHTML = "<span style='color:var(--alert)'>בחירה שגויה, נסו שנית.</span>";
+            }
+        }
+
+        // --- Station 4 Logic ---
+        let st4Choice = false;
