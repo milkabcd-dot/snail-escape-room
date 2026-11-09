@@ -6,72 +6,69 @@
 <title>תיק 04 | תעלומת שבלול השדה</title>
 <style>
 :root{
- --bg:#08151b;--panel:#10262d;--panel2:#16343b;--line:#31565a;
- --mint:#a7f3d0;--teal:#45c4b0;--gold:#f4c66a;--red:#ff7777;
- --white:#f4f7f5;--muted:#b7c9c5;--shadow:0 18px 55px #0008;
+ --bg:#f0fdf4;--panel:#ffffff;--panel2:#f8fafc;--line:#cbd5e1;
+ --mint:#0d9488;--teal:#0f766e;--gold:#d97706;--red:#dc2626;
+ --text-main:#1e293b;--muted:#64748b;--shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:22px 14px 40px;background:
- radial-gradient(ellipse at 15% 5%,#1b4545 0,transparent 35%),
- radial-gradient(ellipse at 90% 90%,#253d37 0,transparent 32%),var(--bg);
- color:var(--white);font-family:Arial,"Segoe UI",sans-serif}
+body{margin:0;min-height:100vh;padding:15px 10px 30px;background:var(--bg);
+ color:var(--text-main);font-family:Arial,"Segoe UI",sans-serif}
 button{font:inherit}
 .shell{max-width:900px;margin:auto}
-header{text-align:center;margin:12px 0 22px}
-.eyebrow{color:var(--gold);font-size:.85rem;letter-spacing:2px;font-weight:bold}
-h1{font-size:clamp(1.8rem,5vw,2.8rem);margin:9px 0;color:var(--mint)}
-.subtitle{color:var(--muted);line-height:1.7;margin:0 auto;max-width:650px}
-.credit{display:inline-block;margin-top:13px;padding:7px 15px;border:1px solid #477c73;border-radius:30px;color:var(--mint);font-size:.92rem}
-.statusbar{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin:18px 0}
-.status{background:#10272d;border:1px solid var(--line);border-radius:12px;padding:9px 14px;color:var(--muted);font-size:.95rem}
-.status strong{color:var(--mint)}
-.card{background:linear-gradient(145deg,#142e35f5,#0e2229f5);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,4vw,32px);box-shadow:var(--shadow)}
-.progress{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:25px}
-.progress span{height:7px;border-radius:8px;background:#29434a}
-.progress span.done{background:var(--teal);box-shadow:0 0 12px #45c4b077}
+header{text-align:center;margin:10px 0 20px}
+.eyebrow{color:var(--gold);font-size:.85rem;letter-spacing:1px;font-weight:bold}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);margin:8px 0;color:var(--teal)}
+.subtitle{color:var(--muted);line-height:1.6;margin:0 auto;max-width:650px;font-size:.95rem}
+.credit{display:inline-block;margin-top:10px;padding:6px 14px;border:1px solid #cbd5e1;background:#fff;border-radius:20px;color:var(--teal);font-size:.9rem;font-weight:bold}
+.statusbar{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;margin:15px 0}
+.status{background:#ffffff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--muted);font-size:.9rem;box-shadow:0 2px 5px rgba(0,0,0,0.03)}
+.status strong{color:var(--teal)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:clamp(15px,3vw,28px);box-shadow:var(--shadow)}
+.progress{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:20px}
+.progress span{height:6px;border-radius:6px;background:#e2e8f0}
+.progress span.done{background:var(--teal)}
 .progress span.current{background:var(--gold)}
 .station{display:none;animation:appear .35s ease}
 .station.active{display:block}
-@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.tag{color:var(--gold);font-weight:bold;font-size:.88rem}
-h2{font-size:clamp(1.4rem,4vw,2rem);margin:8px 0 16px;color:var(--mint)}
-p{line-height:1.75}
-.brief{background:#07191f;border-right:4px solid var(--teal);padding:15px 18px;border-radius:10px;line-height:1.8;margin:15px 0 20px}
-.evidence{border:1px dashed #64827c;background:#0b2025;padding:15px;border-radius:13px;margin:16px 0}
-.evidence-title{color:var(--gold);font-weight:bold;margin-bottom:8px}
+@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tag{color:var(--gold);font-weight:bold;font-size:.85rem}
+h2{font-size:clamp(1.3rem,3.5vw,1.8rem);margin:6px 0 14px;color:var(--teal)}
+p{line-height:1.7;font-size:1rem}
+.brief{background:#f1f5f9;border-right:4px solid var(--teal);padding:14px;border-radius:8px;line-height:1.7;margin:12px 0 18px;font-size:0.98rem}
+.evidence{border:1px dashed #94a3b8;background:#f8fafc;padding:14px;border-radius:10px;margin:14px 0}
+.evidence-title{color:var(--gold);font-weight:bold;margin-bottom:6px}
 .muted{color:var(--muted)}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.choice{background:#17343b;color:var(--white);border:1px solid #42636a;border-radius:12px;padding:14px;text-align:right;cursor:pointer;line-height:1.55;transition:.18s}
-.choice:hover,.choice.selected{border-color:var(--mint);background:#1c4948}
-.choice:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-.action{display:block;width:100%;max-width:300px;margin:20px auto 0;background:var(--mint);color:#08211f;border:0;border-radius:12px;padding:14px 18px;font-weight:bold;cursor:pointer}
-.action:hover{filter:brightness(1.08);transform:translateY(-1px)}
-.secondary{background:#1c3b42;color:var(--mint);border:1px solid #4c7776;border-radius:10px;padding:10px 14px;cursor:pointer}
-.feedback{min-height:28px;text-align:center;font-weight:bold;margin:14px 0 0;line-height:1.5}
-.good{color:var(--mint)}.bad{color:var(--red)}
-.hint{display:none;background:#342f20;border:1px solid #8b7542;color:#ffedbd;border-radius:12px;padding:13px 15px;margin-top:12px;line-height:1.65}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice{background:#ffffff;color:var(--text-main);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:right;cursor:pointer;line-height:1.5;transition:.18s;font-size:0.95rem}
+.choice:hover,.choice.selected{border-color:var(--teal);background:#f0fdf4;font-weight:bold}
+.choice:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.action{display:block;width:100%;max-width:280px;margin:18px auto 0;background:var(--teal);color:#ffffff;border:0;border-radius:10px;padding:12px 16px;font-weight:bold;cursor:pointer;font-size:1rem}
+.action:hover{background:#0d9488}
+.feedback{min-height:26px;text-align:center;font-weight:bold;margin:12px 0 0;line-height:1.5;font-size:1rem}
+.good{color:var(--teal)}.bad{color:var(--red)}
+.hint{display:none;background:#fef3c7;border:1px solid #f59e0b;color:#92400e;border-radius:10px;padding:12px;margin-top:10px;line-height:1.6;font-size:0.95rem}
 .hint.show{display:block}
-.hintbtn{display:block;margin:13px auto;background:transparent;border:1px solid #8b7542;color:#ffdf94;border-radius:25px;padding:9px 16px;cursor:pointer}
-.imageframe{max-width:520px;margin:17px auto;border:1px solid #527a73;border-radius:15px;overflow:hidden;background:#061216}
-.imageframe img{display:block;width:100%;height:auto;max-height:380px;object-fit:contain}
-.caption{font-size:.85rem;color:var(--muted);text-align:center;padding:8px}
-.wheels{display:flex;justify-content:center;gap:17px;margin:22px 0;direction:ltr}
-.wheel{display:grid;justify-items:center;gap:7px}
-.wheel button{width:54px;height:36px;border-radius:8px;border:1px solid #54817b;background:#1b4246;color:var(--mint);font-size:1.2rem;cursor:pointer}
-.digit{width:60px;height:67px;border-radius:10px;border:2px solid var(--teal);background:#061317;display:grid;place-items:center;font-size:2rem;color:var(--mint);font-weight:bold}
-.keypad{display:grid;grid-template-columns:repeat(3,60px);gap:8px;justify-content:center;margin:16px auto}
-.keypad button{height:49px;border:1px solid #42666a;border-radius:9px;background:#193940;color:white;font-size:1.2rem;cursor:pointer}
-.display{direction:ltr;text-align:center;letter-spacing:9px;font-size:1.7rem;color:var(--mint);background:#061317;border:1px solid var(--teal);border-radius:9px;max-width:210px;margin:16px auto;padding:9px}
-.data{width:100%;border-collapse:collapse;margin:12px 0;text-align:center}
-.data th,.data td{padding:11px 8px;border:1px solid #3c6064}
-.data th{color:var(--mint);background:#183940}
-.data td{background:#0b2025}
+.hintbtn{display:block;margin:12px auto;background:transparent;border:1px solid #d97706;color:#b45309;border-radius:20px;padding:8px 14px;cursor:pointer;font-size:0.9rem}
+.imageframe{max-width:480px;margin:15px auto;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#ffffff}
+.imageframe img{display:block;width:100%;height:auto;max-height:340px;object-fit:contain}
+.caption{font-size:0.85rem;color:var(--muted);text-align:center;padding:6px}
+.wheels{display:flex;justify-content:center;gap:15px;margin:20px 0;direction:ltr}
+.wheel{display:grid;justify-items:center;gap:6px}
+.wheel button{width:50px;height:40px;border-radius:8px;border:1px solid var(--line);background:#f1f5f9;color:var(--teal);font-size:1.3rem;cursor:pointer}
+.digit{width:55px;height:65px;border-radius:8px;border:2px solid var(--teal);background:#ffffff;display:grid;place-items:center;font-size:1.8rem;color:var(--teal);font-weight:bold}
+.keypad{display:grid;grid-template-columns:repeat(3,55px);gap:8px;justify-content:center;margin:14px auto}
+.keypad button{height:46px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:var(--text-main);font-size:1.2rem;cursor:pointer;font-weight:bold}
+.display{direction:ltr;text-align:center;letter-spacing:8px;font-size:1.6rem;color:var(--teal);background:#ffffff;border:2px solid var(--teal);border-radius:8px;max-width:190px;margin:14px auto;padding:8px}
+.data{width:100%;border-collapse:collapse;margin:10px 0;text-align:center;font-size:0.95rem}
+.data th,.data td{padding:10px 6px;border:1px solid var(--line)}
+.data th{color:#ffffff;background:var(--teal)}
+.data td{background:#ffffff}
 .final{display:none;text-align:center}
 .final.active{display:block}
-.final h2{font-size:2.2rem;color:var(--mint)}
-.final img{max-width:330px}
-.footer{text-align:center;color:#89a6a0;font-size:.82rem;margin-top:18px}
-@media(max-width:560px){body{padding:12px 9px 25px}.grid2{grid-template-columns:1fr}.card{border-radius:16px}.wheels{gap:10px}.statusbar{justify-content:center}.data th,.data td{font-size:.9rem;padding:8px 4px}}
+.final h2{font-size:2rem;color:var(--teal)}
+.final img{max-width:300px}
+.footer{text-align:center;color:var(--muted);font-size:0.8rem;margin-top:15px}
+@media(max-width:560px){body{padding:10px 6px 20px}.grid2{grid-template-columns:1fr}.card{border-radius:14px}.wheels{gap:10px}.statusbar{justify-content:center}.data th,.data td{font-size:0.85rem;padding:6px 3px}}
 </style>
 </head>
 <body>
@@ -144,7 +141,7 @@ p{line-height:1.75}
   <div class="brief">בכרטיס שטח שנמצא ליד שיח נרשם: "הקרקע הייתה לחה, ומתחת לפני השטח נמצאה גומה קטנה ובה ביצים". איזו מסקנה מתאימה ביותר לתיאור?</div>
   <div class="imageframe">
     <img src="ביצי חילזון.jpg" alt="ביצי שבלול בקרקע" onerror="this.src='ביצי%20חילזון.jpg'">
-    <div class="caption">תצלום ביצי שבלול – ראיית שטח</div>
+    <div class="caption">תצלום ביצי שבלול – ראיית שטח[cite: 1]</div>
   </div>
   <div class="grid2" id="choices3">
    <button class="choice" onclick="choose(3,this,false)">א. הביצים הוטלו על עלה חשוף בשמש ישירה.</button>
@@ -161,10 +158,10 @@ p{line-height:1.75}
  <section class="station" id="s4">
   <div class="tag">תחנה 04 · ניתוח תצלום</div>
   <h2>מה באמת רואים בתמונה?</h2>
-  <div class="brief">חוקרת שטח צילמה שני שבלולים כשהם צמודים זה לזה. עליכם להבחין بين מה שניתן לראות לבין מה שאפשר להסיק בזהירות.</div>
+  <div class="brief">חוקרת שטח צילמה שני שבלולים כשהם צמודים זה לזה. עליכם להבחין בין מה שניתן לראות לבין מה שאפשר להסיק בזהירות.</div>
   <div class="imageframe">
     <img src="חלזונות מזדווגים.jpg" alt="שני שבלולי שדה צמודים זה לזה" onerror="this.src='חלזונות%20מזדווגים.jpg'">
-    <div class="caption">תצלום שטח מקורי מתוך תיק החקירה</div>
+    <div class="caption">תצלום שטח מקורי מתוך תיק החקירה[cite: 1]</div>
   </div>
   <div class="evidence"><div class="evidence-title">שאלת החוקר הראשי</div>איזו קביעה היא המדויקת ביותר על סמך התצלום בלבד?</div>
   <div class="grid2" id="choices4">
@@ -199,16 +196,18 @@ const $=id=>document.getElementById(id);
 function tick(){let s=Math.floor((Date.now()-started)/1000);$('timer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
 setInterval(tick,1000);
 function updateScore(){$('score').textContent=score;$('collected').textContent=done+'/4'}
-function turn(i,n){digits[i]=(digits[i]+n+10)%10;$('d'+i).textContent=digits[i]}
+function turn(i,n){
+    digits[i]=(digits[i]+n+10)%10;
+    $('d'+i).textContent=digits[i];
+}
 function success(n,msg){$('f'+n).innerHTML='<span class="good">✓ '+msg+'</span>';done++;updateScore();$('p'+n).classList.remove('current');$('p'+n).classList.add('done');setTimeout(()=>{if(n<4){$('s'+n).classList.remove('active');$('s'+(n+1)).classList.add('active');$('p'+(n+1)).classList.add('current')}else{finish()}},850)}
 function fail(n,msg='עדיין לא. בדקו שוב את הראיות ונסו פעם נוספת.'){$('f'+n).innerHTML='<span class="bad">✕ '+msg+'</span>'}
 
-// תיקון תחנה 1: קריאה נכונה של הספרות מהמערך והצגת הודעה מדויקת
 function check1(){
     if(digits[0]===1 && digits[1]===1 && digits[2]===2) {
         success(1,'הכספת האנטומית נפתחה. קוד הראיה: 112.');
     } else {
-        fail(1, 'הקוד שwווגי. בדקו את מספר המערכות והפרטים.');
+        fail(1, 'הקוד שגוי. בדקו את מספר המערכות והפרטים ביומן החוקר.');
     }
 }
 
