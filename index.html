@@ -159,9 +159,11 @@
             border: 2px solid var(--accent);
             border-radius: 16px;
             padding: 25px;
-            max-width: 500px;
+            max-width: 520px;
             width: 90%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-title {
@@ -176,6 +178,15 @@
             line-height: 1.6;
             color: #f1f5f9;
             margin-bottom: 20px;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+            margin: 15px 0;
+            display: block;
         }
 
         .close-modal-btn {
@@ -416,7 +427,7 @@
                 <button class="help-btn" onclick="openModal(4)">💡 חלון עזרה / מידע מדעי</button>
 
                 <div class="scanner-frame">
-                    <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים">
+                    <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים"[cite: 1]>
                 </div>
 
                 <div class="order-list">
@@ -436,7 +447,7 @@
             <div class="station" id="station-victory" style="text-align: center;">
                 <h1 style="color:var(--success); font-size: 2.5rem;">🔓 המעבדה נפרצה בהצלחה!</h1>
                 <div class="scanner-frame" style="max-width:300px; margin: 15px auto;">
-                    <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים">
+                    <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים"[cite: 1]>
                 </div>
                 <p style="font-size: 1.2rem; line-height: 1.7; color: var(--text-sub);">
                     כל הכבוד! למדתם ופיצחתם את כל החידות המדעיות על חלזונות השדה.
@@ -480,7 +491,7 @@
             },
             3: {
                 title: "📖 תחנה 3: שמירה על ביצי החילזון",
-                content: "כדי למנוע את התייבשות הביצים בקרינת השמש, החלזונות חופרים גומה באדמה לחה ומטילים בתוכה את הביצים, כך הן נשארות בסביבה מוגנת ולחה."
+                content: "כדי למנוע את התייבשות הביצים בקרינת השמש, החלזונות חופרים גומה באדמה לחה ומטילים בתוכה עשרות ביצים עגולות ולבנות.<br><img src='ביצי חילזון.jpg' class='modal-img' alt='ביצי חילזון באדמה לחה'> בתצלום השטח שלפניכם ניתן לראות חילזון שחפר גומה בקרקע ומטיל בה את הביצים הלחות."
             },
             4: {
                 title: "📖 תחנה 4: פענוח תצלום ההזדווגות",
@@ -489,106 +500,10 @@
         };
 
         function openModal(num) {
-            document.getElementById('mTitle').innerText = helpTexts[num].title;
-            document.getElementById('mContent').innerText = helpTexts[num].content;
+            document.getElementById('mTitle').innerHTML = helpTexts[num].title;
+            document.getElementById('mContent').innerHTML = helpTexts[num].content;
             document.getElementById('helpModal').classList.add('active');
             snd(600, 'sine', 0.1);
         }
 
         function closeModal() {
-            document.getElementById('helpModal').classList.remove('active');
-            snd(400, 'sine', 0.05);
-        }
-
-        let wheels = [0, 0, 0];
-        
-        function stepWheel(idx, delta) {
-            wheels[idx] = (wheels[idx] + delta + 10) % 10;
-            const valEl = document.getElementById(`w-${idx}`);
-            if (valEl) valEl.innerText = wheels[idx];
-            snd(450, 'sine', 0.05);
-        }
-
-        function checkStation1() {
-            if (wheels[0] === 1 && wheels[1] === 1 && wheels[2] === 2) {
-                snd(800, 'sine', 0.2);
-                document.getElementById('fb-1').innerHTML = "<span style='color:var(--success)'>מנעול הכספת נפתח! 🔓</span>";
-                nextStation(1, 2);
-            } else {
-                snd(150, 'sawtooth', 0.2);
-                document.getElementById('fb-1').innerHTML = "<span style='color:var(--alert)'>קוד שגוי! לחצו על חלון העזרה למעלה לקבלת רמז.</span>";
-            }
-        }
-
-        let keyBuffer = "";
-        function pressKey(k) {
-            if (keyBuffer.length < 3) keyBuffer += k;
-            document.getElementById('key-disp').innerText = keyBuffer.padEnd(3, '_');
-            snd(550, 'square', 0.05);
-        }
-        function clearKeypad() {
-            keyBuffer = "";
-            document.getElementById('key-disp').innerText = "___";
-        }
-        function checkStation2() {
-            if (keyBuffer === "777") {
-                snd(800, 'sine', 0.2);
-                document.getElementById('fb-2').innerHTML = "<span style='color:var(--success)'>קוד גישה אושר! 🔓</span>";
-                nextStation(2, 3);
-            } else {
-                snd(150, 'sawtooth', 0.2);
-                document.getElementById('fb-2').innerHTML = "<span style='color:var(--alert)'>קוד שגוי! היעזרו בחלון העזרה.</span>";
-                clearKeypad();
-            }
-        }
-
-        let st3Choice = false;
-        function selectOption3(el, isCorrect) {
-            document.querySelectorAll('#station3 .order-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-            st3Choice = isCorrect;
-            snd(450, 'sine', 0.05);
-        }
-        function checkStation3() {
-            if (st3Choice) {
-                snd(800, 'sine', 0.2);
-                document.getElementById('fb-3').innerHTML = "<span style='color:var(--success)'>תשובה נכונה! 🔓</span>";
-                nextStation(3, 4);
-            } else {
-                snd(150, 'sawtooth', 0.2);
-                document.getElementById('fb-3').innerHTML = "<span style='color:var(--alert)'>בחירה שגויה, נסו שנית.</span>";
-            }
-        }
-
-        let st4Choice = false;
-        function selectOption4(el, isCorrect) {
-            document.querySelectorAll('#station4 .order-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-            st4Choice = isCorrect;
-            snd(450, 'sine', 0.05);
-        }
-        function checkStation4() {
-            if (st4Choice) {
-                snd(1000, 'triangle', 0.4);
-                document.getElementById('station4').classList.remove('active');
-                document.getElementById('station-victory').classList.add('active');
-                document.getElementById('st-4').classList.add('done');
-            } else {
-                snd(150, 'sawtooth', 0.2);
-                document.getElementById('fb-4').innerHTML = "<span style='color:var(--alert)'>פענוח שגוי.</span>";
-            }
-        }
-
-        function nextStation(from, to) {
-            setTimeout(() => {
-                document.getElementById(`station${from}`).classList.remove('active');
-                document.getElementById(`st-${from}`).classList.remove('active');
-                document.getElementById(`st-${from}`).classList.add('done');
-                
-                document.getElementById(`station${to}`).classList.add('active');
-                document.getElementById(`st-${to}`).classList.add('active');
-            }, 800);
-        }
-    </script>
-</body>
-</html>
