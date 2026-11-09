@@ -142,7 +142,10 @@ p{line-height:1.75}
   <div class="tag">תחנה 03 · ראיה סביבתית</div>
   <h2>היכן הוטלו הביצים?</h2>
   <div class="brief">בכרטיס שטח שנמצא ליד שיח נרשם: "הקרקע הייתה לחה, ומתחת לפני השטח נמצאה גומה קטנה ובה ביצים". איזו מסקנה מתאימה ביותר לתיאור?</div>
-  <div class="imageframe"><img src="ביצי%20חילזון.jpg" alt="ביצי שבלול בקרקע" onerror="this.parentElement.style.display='none'"><div class="caption">תצלום ביצי שבלול – ראיית שטח</div></div>
+  <div class="imageframe">
+    <img src="ביצי חילזון.jpg" alt="ביצי שבלול בקרקע" onerror="this.src='ביצי%20חילזון.jpg'">
+    <div class="caption">תצלום ביצי שבלול – ראיית שטח</div>
+  </div>
   <div class="grid2" id="choices3">
    <button class="choice" onclick="choose(3,this,false)">א. הביצים הוטלו על עלה חשוף בשמש ישירה.</button>
    <button class="choice" onclick="choose(3,this,true)">ב. הביצים הוטלו בגומה בקרקע, בסביבה לחה.</button>
@@ -159,9 +162,63 @@ p{line-height:1.75}
   <div class="tag">תחנה 04 · ניתוח תצלום</div>
   <h2>מה באמת רואים בתמונה?</h2>
   <div class="brief">חוקרת שטח צילמה שני שבלולים כשהם צמודים זה לזה. עליכם להבחין בין מה שניתן לראות לבין מה שאפשר להסיק בזהירות.</div>
-  <div class="imageframe"><img src="חלזונות%20מזדווגים.jpg" alt="שני שבלולי שדה צמודים זה לזה"><div class="caption">תצלום שטח מקורי מתוך תיק החקירה</div></div>
+  <div class="imageframe">
+    <img src="חלזונות מזדווגים.jpg" alt="שני שבלולי שדה צמודים זה לזה" onerror="this.src='חלזונות%20מזדווגים.jpg'">
+    <div class="caption">תצלום שטח מקורי מתוך תיק החקירה</div>
+  </div>
   <div class="evidence"><div class="evidence-title">שאלת החוקר הראשי</div>איזו קביעה היא המדויקת ביותר על סמך התצלום בלבד?</div>
   <div class="grid2" id="choices4">
    <button class="choice" onclick="choose(4,this,true)">א. התצלום מתאים להתנהגות של חיזור או הזדווגות בין שני פרטים.</button>
    <button class="choice" onclick="choose(4,this,false)">ב. התצלום מוכיח בוודאות שהתרחשה הפריה מוצלחת.</button>
-   <button class="choice" onclick
+   <button class="choice" onclick="choose(4,this,false)">ג. התצלום מוכיח שכל פרט יטיל בדיוק אותו מספר ביצים.</button>
+   <button class="choice" onclick="choose(4,this,false)">ד. התצלום מוכיח שהשבלולים נאבקים על מזון.</button>
+  </div>
+  <button class="action" onclick="check4()">פענוח הראיה האחרונה</button>
+  <button class="hintbtn" onclick="hint(4)">בקשת רמז (מורידה 5 נקודות)</button>
+  <div class="hint" id="h4">תצלום יכול להראות התנהגות שנצפתה, אך אינו מאפשר לראות תהליכים פנימיים כמו הפריה.</div>
+  <div class="feedback" id="f4" aria-live="polite"></div>
+ </section>
+
+ <section class="final" id="victory">
+  <div class="tag">תיק החקירה הושלם</div>
+  <h2>🔓 המעבדה נפתחה!</h2>
+  <div class="imageframe">
+    <img src="חלזונות 2.jpg" alt="תמונת סיום – חלזונות" onerror="this.src='חלזונות%202.jpg'">
+  </div>
+  <p>כל הכבוד, חוקרים! פענחתם את ארבע הראיות, ניתחתם נתונים והבחנתם בין תצפית למסקנה.</p>
+  <p>הציון שלכם: <strong class="good" id="finalScore"></strong></p>
+  <p class="muted" id="finalTime"></p>
+  <button class="action" onclick="location.reload()">פתיחת תיק חדש ↻</button>
+ </section>
+</main>
+<div class="footer">פעילות לימודית · יש להבחין בין מידע כללי על חלזונות יבשתיים לבין ממצאים שהוכחו במין מסוים.</div>
+</div>
+<script>
+const digits=[0,0,0];let calc="",score=100,done=0,started=Date.now(),selected={3:null,4:null},usedHints={};
+const $=id=>document.getElementById(id);
+function tick(){let s=Math.floor((Date.now()-started)/1000);$('timer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+setInterval(tick,1000);
+function updateScore(){$('score').textContent=score;$('collected').textContent=done+'/4'}
+function turn(i,n){digits[i]=(digits[i]+n+10)%10;$('d'+i).textContent=digits[i]}
+function success(n,msg){$('f'+n).innerHTML='<span class="good">✓ '+msg+'</span>';done++;updateScore();$('p'+n).classList.remove('current');$('p'+n).classList.add('done');setTimeout(()=>{if(n<4){$('s'+n).classList.remove('active');$('s'+(n+1)).classList.add('active');$('p'+(n+1)).classList.add('current')}else{finish()}},850)}
+function fail(n,msg='עדיין לא. בדקו שוב את הראיות ונסו פעם נוספת.'){$('f'+n).innerHTML='<span class="bad">✕ '+msg+'</span>'}
+function check1(){if(digits.join('')==='112')success(1,'הכספת האנטומית נפתחה. קוד הראיה: 112.');else fail(1)}
+function key(k){
+    if(calc.length<2){
+        calc+=k;
+        $('calcDisplay').textContent=calc.padEnd(2,'_');
+        if(calc.length===2){
+            setTimeout(check2, 300);
+        }
+    }
+}
+function clearCalc(){calc=calc.slice(0,-1);$('calcDisplay').textContent=calc.padEnd(2,'_')}
+function check2(){if(calc==='80')success(2,'חישוב נכון! 16 מתוך 20 הם 80%.');else{fail(2,'החישוב או הקוד אינם נכונים.');calc='';$('calcDisplay').textContent='__'}}
+function choose(n,el,correct){document.querySelectorAll('#choices'+n+' .choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');selected[n]=correct}
+function check3(){if(selected[3]===true)success(3,'הראיה הסביבתית פוענחה.');else fail(3,selected[3]===false?'הבחירה אינה מתאימה לתיאור שבכרטיס.':'בחרו תשובה לפני האישור.')}
+function check4(){if(selected[4]===true)success(4,'הבחנתם נכון בין תצפית לבין מסקנה.');else fail(4,selected[4]===false?'התצלום אינו מוכיח את הטענה שבחרתם.':'בחרו תשובה לפני האישור.')}
+function hint(n){if(!usedHints[n]){score=Math.max(0,score-5);usedHints[n]=true;updateScore()}$('h'+n).classList.add('show')}
+function finish(){document.querySelectorAll('.station').forEach(s=>s.classList.remove('active'));$('victory').classList.add('active');$('finalScore').textContent=score+'/100';$('finalTime').textContent='זמן חקירה: '+$('timer').textContent;$('p4').classList.add('done')}
+</script>
+</body>
+</html>
