@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מעבדת הסודית: תעלומת חלזונות השדה</title>
+    <title>מעבדת המחקר: סודות חלזונות השדה</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
 
         :root {
             --bg: #0b132b;
-            --panel: rgba(28, 37, 65, 0.75);
-            --border: rgba(91, 192, 190, 0.3);
+            --panel: rgba(28, 37, 65, 0.85);
+            --border: rgba(91, 192, 190, 0.4);
             --primary: #5bc0be;
             --accent: #6fffe9;
             --alert: #ff0055;
             --success: #00f5d4;
             --text-main: #ffffff;
-            --text-sub: #cdceb1;
+            --text-sub: #d8f3dc;
+            --info-bg: rgba(15, 23, 42, 0.6);
         }
 
         * { box-sizing: border-box; }
@@ -56,7 +57,7 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             margin: 0;
             background: linear-gradient(90deg, var(--accent), var(--primary));
             -webkit-background-clip: text;
@@ -131,22 +132,47 @@
             to { opacity: 1; transform: scale(1); }
         }
 
+        /* --- אזור קרא ולמד (חדש) --- */
+        .study-box {
+            background: var(--info-bg);
+            border: 2px solid var(--primary);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .study-title {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .study-content {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #f1f5f9;
+        }
+
         .clue-box {
             background: rgba(0,0,0,0.3);
             border-right: 4px solid var(--primary);
-            padding: 20px;
+            padding: 18px;
             border-radius: 12px;
-            font-size: 1.15rem;
-            line-height: 1.7;
+            font-size: 1.05rem;
+            line-height: 1.6;
             margin-bottom: 25px;
         }
 
-        /* --- Lock 1: Rotary Lock --- */
+        /* --- Lock 1: Rotary Lock (מתוקן) --- */
         .rotary-container {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin: 30px 0;
+            margin: 25px 0;
         }
 
         .wheel-box {
@@ -159,16 +185,18 @@
             background: var(--primary);
             color: #000;
             border: none;
-            width: 45px; height: 35px;
-            border-radius: 6px;
+            width: 50px; height: 38px;
+            border-radius: 8px;
             font-weight: bold; font-size: 1.2rem;
             cursor: pointer;
+            transition: background 0.2s;
         }
+        .wheel-btn:hover { background: var(--accent); }
 
         .wheel-val {
             font-size: 2.5rem;
             font-weight: 800;
-            width: 65px; height: 75px;
+            width: 70px; height: 80px;
             background: #000;
             border: 2px solid var(--border);
             border-radius: 10px;
@@ -209,7 +237,7 @@
             color: var(--accent);
         }
 
-        /* --- Lock 3: Reorder Cards --- */
+        /* --- Order Options --- */
         .order-list {
             display: flex; flex-direction: column; gap: 10px; margin: 20px 0;
         }
@@ -220,19 +248,25 @@
             padding: 15px; border-radius: 10px;
             cursor: pointer;
             display: flex; justify-content: space-between; align-items: center;
+            font-size: 1.05rem;
+            transition: background 0.2s;
         }
+
+        .order-item:hover { background: rgba(91, 192, 190, 0.15); }
 
         .order-item.selected {
             border-color: var(--accent);
-            background: rgba(111, 255, 233, 0.15);
+            background: rgba(111, 255, 233, 0.2);
+            font-weight: bold;
         }
 
-        /* --- Lock 4: Image Scanner --- */
+        /* --- Scanner Frame --- */
         .scanner-frame {
             position: relative;
-            max-width: 450px; margin: 0 auto 20px auto;
+            max-width: 420px; margin: 0 auto 20px auto;
             border-radius: 16px; overflow: hidden;
             border: 2px solid var(--accent);
+            background: #000;
         }
 
         .scanner-frame img {
@@ -257,14 +291,14 @@
             margin: 20px auto 0 auto; padding: 14px;
             background: linear-gradient(90deg, var(--primary), var(--accent));
             color: #000; border: none; border-radius: 12px;
-            font-size: 1.2rem; font-weight: 800;
+            font-size: 1.15rem; font-weight: 800;
             cursor: pointer; transition: transform 0.2s;
         }
 
-        .action-btn:hover { transform: scale(1.05); }
+        .action-btn:hover { transform: scale(1.03); }
 
         .feedback {
-            text-align: center; font-weight: bold; font-size: 1.2rem;
+            text-align: center; font-weight: bold; font-size: 1.15rem;
             margin-top: 15px; min-height: 30px;
         }
 
@@ -281,7 +315,7 @@
 
     <div class="wrapper">
         <header>
-            <h1>🔐 מעבדת המחקר: סודות החלזונות</h1>
+            <h1>🔬 מעבדת המחקר: סודות חלזונות השדה</h1>
             <div class="credit">פותח ועוצב ע״י מילכה ברקו גרש 🔬</div>
         </header>
 
@@ -295,12 +329,21 @@
 
             <!-- STATION 1 -->
             <div class="station active" id="station1">
-                <h2>תחנה 1: מנעול הכספת האנטומי</h2>
+                <h2>תחנה 1: מבנה גוף והרמפרודיטיזם</h2>
+                
+                <!-- אזור קרא ולמד -->
+                <div class="study-box">
+                    <div class="study-title">📖 קראו ולמדו: האם חלזונות הם זכר או נקבה?</div>
+                    <div class="study-content">
+                        חלזונות השדה הם יצורים <strong>הרמפרודיטיים (אנדרוגיניים)</strong>. משמעות הדבר היא שאין חילזון "זכר בלבד" או "נקבה בלבד" – <strong>כל חלזון נושא בגופו בו זמנית גם מערכת רבייה זכרית וגם מערכת רבייה נקبיית</strong>. במהלך המפגש מתבצעת הפריה הדדית שבה שני הפרטים מעבירים תאי זרע זה לזה.
+                    </div>
+                </div>
+
                 <div class="clue-box">
-                    <strong>רמז לפתיחת הקוד:</strong> חלזונות השדה הם הרמפרודיטים (אנדרוגיניים). לקוד הכספת 3 ספרות:<br>
-                    1. מספר המערכות הזכריות שיש לכל חלזון? (1)<br>
-                    2. מספר המערכות הנקביות שיש לכל חלזון? (1)<br>
-                    3. סך הכל תאי זרע שמעבירים הדדית (זכר+נקבה פועלים)? (2)
+                    <strong>משימת הכספת:</strong> לפי מה שלמדתם, השלימו את הקוד בן 3 הספרות לפי הסדר הבא:<br>
+                    1. מספר המערכות הזכריות בחלזון אחד.<br>
+                    2. מספר המערכות הנקביות בחלזון אחד.<br>
+                    3. מספר הפרטים המשתתפים בהפריה ההדדית.
                 </div>
 
                 <div class="rotary-container">
@@ -327,167 +370,9 @@
 
             <!-- STATION 2 -->
             <div class="station" id="station2">
-                <h2>תחנה 2: מקלדת הקוד של "חיצי האהבה"</h2>
-                <div class="clue-box">
-                    <strong>רמז מפוענח:</strong> במהלך החיזור, החלזונות יורים זה בזה "חץ אהבה" (Love Dart) עשוי סידן.<br>
-                    מה הקוד הביולוגי שלו? החץ **אינו** הורג (0), אלא מפריש **הורמונים המגדילים את שרדות הזרע** (קוד: 777).
-                </div>
-
-                <div class="keypad-display" id="key-disp">____</div>
-                <div class="keypad-grid">
-                    <button class="key-btn" onclick="pressKey('7')">7</button>
-                    <button class="key-btn" onclick="pressKey('8')">8</button>
-                    <button class="key-btn" onclick="pressKey('9')">9</button>
-                    <button class="key-btn" onclick="pressKey('4')">4</button>
-                    <button class="key-btn" onclick="pressKey('5')">5</button>
-                    <button class="key-btn" onclick="pressKey('6')">6</button>
-                    <button class="key-btn" onclick="pressKey('1')">1</button>
-                    <button class="key-btn" onclick="pressKey('2')">2</button>
-                    <button class="key-btn" onclick="pressKey('3')">3</button>
-                    <button class="key-btn" style="background:#ff0055; color:#fff;" onclick="clearKeypad()">C</button>
-                    <button class="key-btn" onclick="pressKey('0')">0</button>
-                    <button class="key-btn" style="background:var(--success); color:#000;" onclick="checkStation2()">✓</button>
-                </div>
-                <div class="feedback" id="fb-2"></div>
-            </div>
-
-            <!-- STATION 3 -->
-            <div class="station" id="station3">
-                <h2>תחנה 3: רצף מחזור ההטלה</h2>
-                <div class="clue-box">
-                    לחצו על השלב הנכון ביותר להבטחת הישרדות הביצים:
-                </div>
-
-                <div class="order-list">
-                    <div class="order-item" onclick="selectOption3(this, false)">
-                        א. הטלת הביצים על עלים גבוהים החשופים לשמש ישירה
-                    </div>
-                    <div class="order-item" onclick="selectOption3(this, true)">
-                        ב. חפירת גומה באדמה לחה והטלת הביצים בתוכה
-                    </div>
-                    <div class="order-item" onclick="selectOption3(this, false)">
-                        ג. נשיאת הביצים על הקונכייה עד לבקיעתן
-                    </div>
-                </div>
-
-                <button class="action-btn" onclick="checkStation3()">אשר בחירה</button>
-                <div class="feedback" id="fb-3"></div>
-            </div>
-
-            <!-- STATION 4 -->
-            <div class="station" id="station4">
-                <h2>תחנה 4: מפענח הסריקה הטרמית</h2>
-                <div class="clue-box">
-                    סורק המעבדה זיהה תהליך הזדווגות נדיר בשטח. התבוננו בתמונה שפוענחה:
-                </div>
-
-                <div class="scanner-frame">
-                    <div class="scanner-line"></div>
-                    <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים">
-                </div>
-
-                <div class="order-list">
-                    <div class="order-item" onclick="selectOption4(this, true)">
-                        הזדווגות והעברת תאי זרע הדדית דרך איברי הרבייה
-                    </div>
-                    <div class="order-item" onclick="selectOption4(this, false)">
-                        קרב טריטוריאלי על מזון בקרקע
-                    </div>
-                </div>
-
-                <button class="action-btn" onclick="checkStation4()">פתח את הדלת הסופית</button>
-                <div class="feedback" id="fb-4"></div>
-            </div>
-
-            <!-- VICTORY -->
-            <div class="station" id="station-victory" style="text-align: center;">
-                <h1 style="color:var(--success); font-size: 2.8rem;">🔓 המעבדה נפרצה בהצלחה!</h1>
-                <div class="scanner-frame" style="max-width:320px;">
-                    <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים">
-                </div>
-                <p style="font-size: 1.3rem; line-height: 1.8;">
-                    כל הכבוד! פיצחתם את כל המנעולים המדעים והבנתם לעומק את תהליך הרבייה של חלזונות השדה.
-                </p>
-                <button class="action-btn" onclick="location.reload()">שחק שוב 🔄</button>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        // --- Sound FX Generator ---
-        function snd(f, t, d) {
-            try {
-                let c = new (window.AudioContext || window.webkitAudioContext)();
-                let o = c.createOscillator(), g = c.createGain();
-                o.type = t; o.frequency.value = f;
-                g.gain.setValueAtTime(0.1, c.currentTime);
-                g.gain.exponentialRampToValueAtTime(0.01, c.currentTime + d);
-                o.connect(g); g.connect(c.destination);
-                o.start(); o.stop(c.currentTime + d);
-            } catch(e){}
-        }
-
-        // --- Station 1 Logic ---
-        let wheels = [0,0,0];
-        function changeWheel(idx, diff) {
-            wheels[idx] = (wheels[idx] + diff + 10) % 10;
-            document.getElementById(`w-${idx}`).innerText = wheels[idx];
-            snd(400, 'sine', 0.05);
-        }
-
-        function checkStation1() {
-            if (wheels.join('') === '112') {
-                snd(800, 'sine', 0.2);
-                document.getElementById('fb-1').innerHTML = "<span style='color:var(--success)'>מנעול הכספת נפתח! 🔓</span>";
-                nextStation(1, 2);
-            } else {
-                snd(150, 'sawtooth', 0.2);
-                document.getElementById('fb-1').innerHTML = "<span style='color:var(--alert)'>קוד שגוי! נסה שוב.</span>";
-            }
-        }
-
-        // --- Station 2 Logic ---
-        let keyBuffer = "";
-        function pressKey(k) {
-            if (keyBuffer.length < 3) keyBuffer += k;
-            document.getElementById('key-disp').innerText = keyBuffer.padEnd(3, '_');
-            snd(550, 'square', 0.05);
-        }
-        function clearKeypad() {
-            keyBuffer = "";
-            document.getElementById('key-disp').innerText = "___";
-        }
-        function checkStation2() {
-            if (keyBuffer === "777") {
-                snd(800, 'sine', 0.2);
-                document.getElementById('fb-2').innerHTML = "<span style='color:var(--success)'>קוד גישה אושר! 🔓</span>";
-                nextStation(2, 3);
-            } else {
-                snd(150, 'sawtooth', 0.2);
-                document.getElementById('fb-2').innerHTML = "<span style='color:var(--alert)'>קוד שגוי!</span>";
-                clearKeypad();
-            }
-        }
-
-        // --- Station 3 Logic ---
-        let st3Choice = false;
-        function selectOption3(el, isCorrect) {
-            document.querySelectorAll('#station3 .order-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-            st3Choice = isCorrect;
-            snd(450, 'sine', 0.05);
-        }
-        function checkStation3() {
-            if (st3Choice) {
-                snd(800, 'sine', 0.2);
-                document.getElementById('fb-3').innerHTML = "<span style='color:var(--success)'>תשובה נכונה! 🔓</span>";
-                nextStation(3, 4);
-            } else {
-                snd(150, 'sawtooth', 0.2);
-                document.getElementById('fb-3').innerHTML = "<span style='color:var(--alert)'>בחירה שגויה, נסו שנית.</span>";
-            }
-        }
-
-        // --- Station 4 Logic ---
-        let st4Choice = false;
+                <h2>תחנה 2: תעלומת "חיצי האהבה"</h2>
+                
+                <div class="study-box">
+                    <div class="study-title">📖 קראו ולמדו: מהו "חץ אהבה"?</div>
+                    <div class="study-content">
+                        בעת החיזור, חלזונות השדה מפרישים ומחדירים זה לזה מבנה עשוי גיר סידני המכונה <strong>"חץ אהבה" (Love Dart)</strong>. בניגוד למחשבה שזהו נשק קטלני, החץ אי
