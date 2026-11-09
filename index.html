@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>חדר בריחה: מסתורין בגינה - סודות החלזונות</title>
+    <title>חדר בריחה מקצועי: מסתורין בגינה - סודות החלזונות</title>
     <style>
         :root {
-            --bg-color: #f4fbf7;
+            --bg-color: #f1f5f9;
             --card-bg: #ffffff;
-            --primary: #1b4332;
-            --accent: #2d6a4f;
-            --light-accent: #74c69d;
-            --gold: #d4af37;
-            --text: #2d3748;
+            --primary: #0f172a;
+            --accent: #15803d;
+            --accent-hover: #166534;
+            --light-accent: #dcfce7;
+            --text: #1e293b;
+            --text-light: #475569;
+            --border: #cbd5e1;
         }
 
         body {
@@ -28,48 +30,50 @@
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         h1 {
             color: var(--primary);
-            margin-bottom: 8px;
-            font-size: 2rem;
+            margin-bottom: 6px;
+            font-size: 2.2rem;
+            font-weight: 800;
         }
 
         .subtitle {
-            color: var(--accent);
-            font-size: 1.1rem;
+            color: var(--text-light);
+            font-size: 1.15rem;
             margin-top: 0;
         }
 
         .creator-credit {
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1rem;
-            background: #e8f5e9;
-            padding: 8px 16px;
-            border-radius: 20px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.05rem;
+            background: var(--light-accent);
+            padding: 8px 20px;
+            border-radius: 30px;
             display: inline-block;
-            margin-bottom: 20px;
-            border: 1px solid var(--light-accent);
+            margin-top: 10px;
+            border: 2px solid #86efac;
         }
 
         .escape-container {
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
             background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 35px;
             box-sizing: border-box;
             position: relative;
+            border: 1px solid #e2e8f0;
         }
 
         .progress-bar {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             position: relative;
         }
 
@@ -79,40 +83,43 @@
             top: 50%;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 6px;
             background: #e2e8f0;
             z-index: 1;
             transform: translateY(-50%);
+            border-radius: 3px;
         }
 
         .step-node {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: #e2e8f0;
-            color: #718096;
+            color: #64748b;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.1rem;
             z-index: 2;
             transition: all 0.4s ease;
+            border: 3px solid #ffffff;
         }
 
         .step-node.active {
             background: var(--accent);
             color: white;
-            box-shadow: 0 0 0 4px #d8f3dc;
+            box-shadow: 0 0 0 5px var(--light-accent);
         }
 
         .step-node.completed {
-            background: var(--light-accent);
+            background: #22c55e;
             color: white;
         }
 
         .station-card {
             display: none;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         .station-card.active {
@@ -120,37 +127,44 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .station-title {
             color: var(--primary);
-            border-bottom: 2px solid #e8f5e9;
-            padding-bottom: 10px;
+            font-size: 1.5rem;
+            border-bottom: 3px solid var(--light-accent);
+            padding-bottom: 12px;
             margin-top: 0;
+            font-weight: 700;
         }
 
         .story-box {
             background: #f8fafc;
-            border-right: 4px solid var(--accent);
-            padding: 15px;
-            border-radius: 4px 8px 8px 4px;
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            line-height: 1.6;
+            border-right: 5px solid var(--accent);
+            padding: 18px;
+            border-radius: 6px 12px 12px 6px;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #0f172a;
+            border-top: 1px solid #e2e8f0;
+            border-left: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .photo-frame {
             text-align: center;
-            margin: 20px 0;
-            border-radius: 12px;
+            margin: 25px 0;
+            border-radius: 14px;
             overflow: hidden;
-            border: 4px solid #ffffff;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            max-width: 450px;
+            border: 4px solid #f1f5f9;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            max-width: 420px;
             margin-left: auto;
             margin-right: auto;
+            background: #000;
         }
 
         .photo-frame img {
@@ -162,37 +176,41 @@
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin: 20px 0;
+            gap: 14px;
+            margin: 25px 0;
         }
 
         .option-btn {
             background: #ffffff;
-            border: 2px solid #cbd5e1;
-            padding: 14px 20px;
-            border-radius: 10px;
+            border: 2px solid var(--border);
+            padding: 16px 22px;
+            border-radius: 12px;
             cursor: pointer;
             text-align: right;
-            font-size: 1rem;
-            color: var(--text);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary);
             transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .option-btn:hover {
             border-color: var(--accent);
-            background: #f0fdf4;
+            background: var(--light-accent);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(21, 128, 61, 0.15);
         }
 
         .feedback-box {
-            min-height: 24px;
-            font-weight: bold;
-            margin-top: 15px;
+            min-height: 28px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 20px;
             text-align: center;
         }
 
-        .success { color: #16a34a; }
-        .error { color: #dc2626; }
+        .success { color: #15803d; }
+        .error { color: #b91c1c; }
 
         canvas#confettiCanvas {
             position: fixed;
@@ -206,29 +224,33 @@
 
         .victory-screen {
             text-align: center;
-            padding: 30px 10px;
+            padding: 20px 10px;
         }
 
         .victory-title {
-            color: var(--primary);
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            color: var(--accent);
+            font-size: 2.4rem;
+            margin-bottom: 15px;
+            font-weight: 800;
         }
 
         .restart-btn {
             background: var(--accent);
             color: white;
             border: none;
-            padding: 12px 28px;
-            font-size: 1.1rem;
-            border-radius: 8px;
+            padding: 14px 32px;
+            font-size: 1.15rem;
+            font-weight: bold;
+            border-radius: 12px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.2s;
+            margin-top: 25px;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 4px 12px rgba(21, 128, 61, 0.25);
         }
 
         .restart-btn:hover {
-            background: var(--primary);
+            background: var(--accent-hover);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -317,10 +339,10 @@
         <div class="station-card" id="victory-card">
             <div class="victory-screen">
                 <h2 class="victory-title">🎉 פיצחתם את חדר הבריחה!</h2>
-                <div class="photo-frame" style="max-width:350px;">
+                <div class="photo-frame" style="max-width:320px;">
                     <img src="חלזונות מזדווגים.jpg" alt="חלזונות מזדווגים">
                 </div>
-                <p style="font-size: 1.2rem; line-height: 1.6;">
+                <p style="font-size: 1.2rem; line-height: 1.6; color: var(--text);">
                     כל הכבוד! חקרתם והבנתם את מורכבות תהליך הרבייה וההרמפרודיטיזם בחלזונות השדה.
                 </p>
                 <button class="restart-btn" onclick="restartEscapeRoom()">שחקו שוב</button>
@@ -331,7 +353,6 @@
     <canvas id="confettiCanvas"></canvas>
 
     <script>
-        // --- מערכת צלילים מוגנת ---
         function playSound(freq, type, duration) {
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -365,7 +386,6 @@
             });
         }
 
-        // --- קונפטי ---
         let confettiAnimId = null;
         function triggerConfetti() {
             try {
@@ -374,7 +394,7 @@
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
                 let particles = [];
-                const colors = ['#2d6a4f', '#74c69d', '#d4af37', '#52b788', '#b7e4c7'];
+                const colors = ['#15803d', '#22c55e', '#86efac', '#eab308', '#166534'];
                 
                 for (let i = 0; i < 90; i++) {
                     particles.push({
@@ -410,7 +430,6 @@
             } catch(e){}
         }
 
-        // --- לוגיקת משחק מדויקת ---
         const correctAnswers = { 1: 1, 2: 1, 3: 1, 4: 1 };
 
         function checkAnswer(stationNum, selectedIndex) {
