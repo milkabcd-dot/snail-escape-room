@@ -161,7 +161,7 @@ p{line-height:1.75}
  <section class="station" id="s4">
   <div class="tag">תחנה 04 · ניתוח תצלום</div>
   <h2>מה באמת רואים בתמונה?</h2>
-  <div class="brief">חוקרת שטח צילמה שני שבלולים כשהם צמודים זה לזה. עליכם להבחין בין מה שניתן לראות לבין מה שאפשר להסיק בזהירות.</div>
+  <div class="brief">חוקרת שטח צילמה שני שבלולים כשהם צמודים זה לזה. עליכם להבחין بين מה שניתן לראות לבין מה שאפשר להסיק בזהירות.</div>
   <div class="imageframe">
     <img src="חלזונות מזדווגים.jpg" alt="שני שבלולי שדה צמודים זה לזה" onerror="this.src='חלזונות%20מזדווגים.jpg'">
     <div class="caption">תצלום שטח מקורי מתוך תיק החקירה</div>
@@ -202,7 +202,16 @@ function updateScore(){$('score').textContent=score;$('collected').textContent=d
 function turn(i,n){digits[i]=(digits[i]+n+10)%10;$('d'+i).textContent=digits[i]}
 function success(n,msg){$('f'+n).innerHTML='<span class="good">✓ '+msg+'</span>';done++;updateScore();$('p'+n).classList.remove('current');$('p'+n).classList.add('done');setTimeout(()=>{if(n<4){$('s'+n).classList.remove('active');$('s'+(n+1)).classList.add('active');$('p'+(n+1)).classList.add('current')}else{finish()}},850)}
 function fail(n,msg='עדיין לא. בדקו שוב את הראיות ונסו פעם נוספת.'){$('f'+n).innerHTML='<span class="bad">✕ '+msg+'</span>'}
-function check1(){if(digits.join('')==='112')success(1,'הכספת האנטומית נפתחה. קוד הראיה: 112.');else fail(1)}
+
+// תיקון תחנה 1: קריאה נכונה של הספרות מהמערך והצגת הודעה מדויקת
+function check1(){
+    if(digits[0]===1 && digits[1]===1 && digits[2]===2) {
+        success(1,'הכספת האנטומית נפתחה. קוד הראיה: 112.');
+    } else {
+        fail(1, 'הקוד שwווגי. בדקו את מספר המערכות והפרטים.');
+    }
+}
+
 function key(k){
     if(calc.length<2){
         calc+=k;
